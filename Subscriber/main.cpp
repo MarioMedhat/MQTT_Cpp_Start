@@ -2,7 +2,7 @@
 #include "mqtt/async_client.h"
 
 const std::string SERVER_ADDRESS("tcp://localhost:1883");
-const std::string CLIENT_ID("subscriber");
+const std::string CLIENT_ID_S("subscriber");
 const std::string TOPIC("test/topic");
 const int QOS = 1;
 const int TIMEOUT = 10000;
@@ -28,7 +28,7 @@ public:
 
 int main(int argc, char* argv[])
 {
-    mqtt::async_client client(SERVER_ADDRESS, CLIENT_ID);
+    mqtt::async_client client(SERVER_ADDRESS, CLIENT_ID_S);
 
     mqtt::connect_options connOpts;
     connOpts.set_keep_alive_interval(20);
