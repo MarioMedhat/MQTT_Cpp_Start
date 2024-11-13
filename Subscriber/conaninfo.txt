@@ -1,0 +1,113 @@
+[settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.libcxx=libstdc++
+    compiler.version=13
+    os=Linux
+
+[requires]
+    nlohmann_json/3.Y.Z
+    openssl/3.Y.Z
+    paho-mqtt-c/1.Y.Z
+    paho-mqtt-cpp/1.Y.Z
+    zlib/1.Y.Z
+
+[options]
+
+
+[full_settings]
+    arch=x86_64
+    arch_build=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.libcxx=libstdc++
+    compiler.version=13
+    os=Linux
+    os_build=Linux
+
+[full_requires]
+    nlohmann_json/3.11.3:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+    openssl/3.2.1:df3bbb601f2dfce25bac54e0d05c01a39c8bc4f8
+    paho-mqtt-c/1.3.13:9b207148e01b0fa2b26b8603126c7c4ebe408346
+    paho-mqtt-cpp/1.4.0:57ec042aed6abcf79c3ec6336ee94198573a142e
+    zlib/1.3.1:c11224e931af7eb47df7c689b7ad7afc6b151bd9
+
+[full_options]
+    openssl:386=False
+    openssl:enable_trace=False
+    openssl:enable_weak_ssl_ciphers=False
+    openssl:fPIC=True
+    openssl:no_apps=False
+    openssl:no_aria=False
+    openssl:no_asm=False
+    openssl:no_async=False
+    openssl:no_autoload_config=False
+    openssl:no_bf=False
+    openssl:no_blake2=False
+    openssl:no_camellia=False
+    openssl:no_cast=False
+    openssl:no_chacha=False
+    openssl:no_cms=False
+    openssl:no_comp=False
+    openssl:no_ct=False
+    openssl:no_deprecated=False
+    openssl:no_des=False
+    openssl:no_dgram=False
+    openssl:no_dh=False
+    openssl:no_dsa=False
+    openssl:no_dso=False
+    openssl:no_ec=False
+    openssl:no_ecdh=False
+    openssl:no_ecdsa=False
+    openssl:no_engine=False
+    openssl:no_filenames=False
+    openssl:no_fips=False
+    openssl:no_gost=False
+    openssl:no_idea=False
+    openssl:no_legacy=False
+    openssl:no_md2=True
+    openssl:no_md4=False
+    openssl:no_mdc2=False
+    openssl:no_module=False
+    openssl:no_ocsp=False
+    openssl:no_pinshared=False
+    openssl:no_rc2=False
+    openssl:no_rc4=False
+    openssl:no_rc5=False
+    openssl:no_rfc3779=False
+    openssl:no_rmd160=False
+    openssl:no_seed=False
+    openssl:no_sm2=False
+    openssl:no_sm3=False
+    openssl:no_sm4=False
+    openssl:no_sock=False
+    openssl:no_srp=False
+    openssl:no_srtp=False
+    openssl:no_sse2=False
+    openssl:no_ssl=False
+    openssl:no_ssl3=False
+    openssl:no_stdio=False
+    openssl:no_threads=False
+    openssl:no_tls1=False
+    openssl:no_ts=False
+    openssl:no_whirlpool=False
+    openssl:no_zlib=False
+    openssl:openssldir=None
+    openssl:shared=False
+    openssl:tls_security_level=None
+    paho-mqtt-c:asynchronous=True
+    paho-mqtt-c:fPIC=True
+    paho-mqtt-c:high_performance=False
+    paho-mqtt-c:shared=False
+    paho-mqtt-c:ssl=True
+    paho-mqtt-cpp:fPIC=True
+    paho-mqtt-cpp:shared=False
+    zlib:fPIC=True
+    zlib:shared=False
+
+[recipe_hash]
+
+
+[env]
+
