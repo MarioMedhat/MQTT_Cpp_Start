@@ -4,7 +4,8 @@ project(ConanTest)
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_BINARY_DIR}/conan/build/Release/generators/conan_toolchain.cmake")
 include(${CMAKE_TOOLCHAIN_FILE})
 
-set(SOURCES main.cpp)
+include_directories(include)
+set(SOURCES src/main.cpp src/MQTT_Client.cpp src/Json_DataRW.cpp)
 
 find_package(nlohmann_json REQUIRED)
 find_package(PahoMqttCpp  REQUIRED)
