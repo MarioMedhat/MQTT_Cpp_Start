@@ -5,7 +5,7 @@ set(CMAKE_TOOLCHAIN_FILE "${CMAKE_BINARY_DIR}/conan/build/Release/generators/con
 include(${CMAKE_TOOLCHAIN_FILE})
 
 include_directories(include)
-set(SOURCES src/main.cpp src/MQTT_Client.cpp src/Json_DataRW.cpp)
+set(SOURCES src/main.cpp src/MQTT_Client.cpp src/Json_DataRW.cpp src/Sensor.cpp)
 
 find_package(nlohmann_json REQUIRED)
 find_package(PahoMqttCpp  REQUIRED)

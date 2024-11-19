@@ -20,6 +20,24 @@ void writeJsonFile(const std::string& filepath) {
     }
 }
 
+void updateJsonFile(const std::string& filepath, std::string field, int val)
+{
+    // Create or load the JSON file
+    std::ifstream file(filepath);
+    nlohmann::json jsonData;
+
+    if (file.is_open() && file.peek() != std::ifstream::traits_type::eof()) {
+        // If file exists and is not empty, load the content
+        file >> jsonData;
+
+        jsonData[field] = val;
+    }
+    file.close();
+    std::ofstream outfile(filepath);
+    outfile << jsonData.dump();
+    outfile.close();
+}
+
 void readJsonFile(const std::string& filepath) {
     nlohmann::json jsonData;
 

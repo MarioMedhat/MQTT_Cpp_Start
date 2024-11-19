@@ -20,14 +20,14 @@ void MQTTCallback::message_arrived(mqtt::const_message_ptr message)
 
 }
 
-MQTTClient_m::MQTTClient_m(std::string server_address, std::string client_id, int keep_alive_interval, int quality_of_service)
-: server_address(std::move(server_address)), 
+MQTTService::MQTTService(std::string server_address, std::string client_id, int keep_alive_interval, int quality_of_service)
+:   server_address(std::move(server_address)), 
     client_id(std::move(client_id)), 
     keep_alive_interval(keep_alive_interval), 
     quality_of_service(quality_of_service),
     client(this->server_address, this->client_id){}
 
-bool MQTTClient_m::connect()
+bool MQTTService::connect()
 {
     try
     {
@@ -51,7 +51,7 @@ bool MQTTClient_m::connect()
     return connection_successful;
 }
 
-void MQTTClient_m::disconnect()
+void MQTTService::disconnect()
 {
     if (connection_successful == true)
     {
@@ -64,30 +64,19 @@ void MQTTClient_m::disconnect()
     }
 }
 
-void MQTTClient_m::subscribe(std::string topic)
+SensorService::SensorService(std::string server_address, std::string client_id, int keep_alive_interval, int quality_of_service)
+:   MQTTService(std::move(server_address), std::move(client_id), keep_alive_interval, quality_of_service)
 {
-    if (connection_successful == true)
-    {
-        if (first_time == true)
-        {
-            mqtt::token_ptr subToken = client.subscribe(topic, quality_of_service);
-            subToken->wait();
-            first_time = false;
-        }
+    Temp_Sensor temp_sensor ("temperature");
+    Hum_Sensor hum_sensor ("humidity");
 
-        while (true)
-        {
-            // Wait for messages
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        }
-    }
-    else
-    {
-        std::cout << "Your client is not connected" << std::endl;
-    }
+    Sensors.push_back(std::make_unique<Temp_Sensor>("temperature"));
+    Sensors.push_back(std::make_unique<Hum_Sensor>("humidity"));
+
+    connect();
 }
 
-void MQTTClient_m::publish(std::string topic, std::string message)
+void SensorService::publish(std::string topic, std::string message)
 {
     if (connection_successful == true)
     {
@@ -99,3 +88,70 @@ void MQTTClient_m::publish(std::string topic, std::string message)
         std::cout << "Your client is not connected" << std::endl;
     }
 }
+
+void SensorService::subscribe(std::string topic) {
+    std::cout << "SensorService does not support subscribing to topics." << std::endl;
+}
+
+void SensorService::sensor_update()
+{
+    while(true)
+    {
+        for (auto& sensor : Sensors)
+        {
+            sensor->update_sensor_reading();
+        }
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+}
+
+void SensorService::sensor_publish()
+{
+    while(true)
+    {
+        for (auto& sensor : Sensors)
+        {
+            std::string json_data_str = sensor->get_sensor_reading();
+            publish(sensor->get_sensor_topic(), sensor->get_sensor_reading());
+        }
+        std::this_thread::sleep_for(std::chrono::seconds(3));
+    }
+}
+
+
+LoggerService::LoggerService(std::string server_address, std::string client_id, int keep_alive_interval, int quality_of_service)
+:   MQTTService(std::move(server_address), std::move(client_id), keep_alive_interval, quality_of_service)
+{
+    connect();
+}
+
+void LoggerService::subscribe(std::string topic)
+{
+    if (connection_successful == true)
+    {
+        mqtt::token_ptr subToken = client.subscribe(topic, quality_of_service);
+        subToken->wait();
+        first_time = false;
+    }
+    else
+    {
+        std::cout << "Your client is not connected" << std::endl;
+    }
+}
+
+void LoggerService::publish(std::string topic, std::string message)
+{
+    std::cout << "LoggerService does not support publishing messages." << std::endl;
+}
+
+void LoggerService::read_sensors()
+{
+    subscribe("humidity");
+    subscribe("temperature");
+    while (true)
+    {
+        // Wait for messages
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+}
+
